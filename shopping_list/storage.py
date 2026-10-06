@@ -14,4 +14,6 @@ def load(path: Path) -> ShoppingList:
 
 def save(shopping: ShoppingList, path: Path) -> None:
     data = {"items": [asdict(item) for item in shopping.items]}
-    path.write_text(json.dumps(data, indent=2) + "\n")
+    tmp_path = path.with_name(path.name + ".tmp")
+    tmp_path.write_text(json.dumps(data, indent=2) + "\n")
+    tmp_path.replace(path)

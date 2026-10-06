@@ -27,6 +27,10 @@ class StorageTest(unittest.TestCase):
 
         self.assertEqual(storage.load(self.path), shopping)
 
+    def test_save_leaves_no_temp_file_behind(self):
+        storage.save(ShoppingList(), self.path)
+        self.assertEqual([p.name for p in Path(self.tmp.name).iterdir()], ["list.json"])
+
 
 if __name__ == "__main__":
     unittest.main()
